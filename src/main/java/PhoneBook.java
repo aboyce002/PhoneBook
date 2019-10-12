@@ -1,14 +1,14 @@
 import java.util.*;
 
 public class PhoneBook {
-    Map<String, List<String>> map = new HashMap<String, List<String>>();
+    private Map<String, List<String>> map;
 
     public PhoneBook(Map<String, List<String>> map) {
         this.map = map;
     }
 
-    public PhoneBook() {
-        this(null);
+    public PhoneBook(){
+        this(new HashMap<String, List<String>>());
     }
 
     public void add(String name, String phoneNumber) {
@@ -18,11 +18,7 @@ public class PhoneBook {
     }
 
     public void addAll(String name, String... phoneNumbers) {
-        List<String> nums = new ArrayList<String>();
-        for ( String key : phoneNumbers) {
-            nums.add(key);
-            map.put(name, nums);
-        }
+        map.put(name, Arrays.asList(phoneNumbers));
     }
 
     public void remove(String name) {
@@ -38,11 +34,11 @@ public class PhoneBook {
     }
 
     public String reverseLookup(String phoneNumber)  {
-        List<String> names;
+        List<String> nums;
         String result = "";
         for ( String key : map.keySet() ) {
-            names = map.get(key);
-            for ( String k : names) {
+            nums = map.get(key);
+            for ( String k : nums) {
                 if(k.equals(phoneNumber))
                     return key;
             }
